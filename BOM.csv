@@ -1,0 +1,10 @@
+Ref,Qty,Part,Description,Manufacturer,MPN / Product ID,Supplier,Purchase Link,Unit Price (USD),Ext Price (USD),Notes
+A1,1,Arduino Nano ESP32 with headers,ESP32-S3 MCU board; USB-C; 3.3 V logic; runs all firmware,Arduino,ABX00083,DigiKey,https://www.digikey.com/en/products/detail/arduino/ABX00083/21219775,19.30,19.30,"Also at store.arduino.cc/products/nano-esp32-with-headers. See Known Issues: the A1 footprint on this PCB is 1.00 mm pitch and does NOT match this board's 2.54 mm pins."
+U1,1,Monochrome 0.96in 128x64 OLED - STEMMA QT,SSD1306 I2C display; address 0x3C; 5 V tolerant,Adafruit,326,Adafruit,https://www.adafruit.com/product/326,17.50,17.50,"Off-board; connects to J3. Any 4-pin I2C SSD1306 128x64 module works - wire by label (5V/GND/SDA/SCL), not by pin position."
+SW1-SW4,4,Tactile Button switch 6 mm THT (20-pack),LEFT / OK / RIGHT / RESET buttons; footprint SW_PUSH_6mm,Adafruit,367,Adafruit,https://www.adafruit.com/product/367,2.50,2.50,"Price is for the 20-pack; you need 4. No external pull-ups - firmware uses INPUT_PULLUP and buttons go to GND."
+J3,1,Break-away 0.1in 36-pin male header strip (10-pack),Snap off 4 pins for the OLED connector,Adafruit,392,Adafruit,https://www.adafruit.com/product/392,4.95,4.95,Price is for the 10-strip pack; you need 4 pins.
+-,1,Premium Female/Female jumper wires 40 x 6in,Connects J3 on the PCB to the OLED module,Adafruit,266,Adafruit,https://www.adafruit.com/product/266,3.95,3.95,You need 4 wires.
+PCB1,1,Custom 2-layer PCB 40.0 x 37.5 mm,Fabricate from outpost-gerbers.zip,JLCPCB,-,JLCPCB,https://jlcpcb.com/,2.00,2.00,"~$2 for 5 pcs plus shipping. Alternatives: pcbway.com, oshpark.com. Upload outpost-gerbers.zip directly."
+-,1,USB Type A to Type C cable - 1 m,Power and programming,Adafruit,4474,Adafruit,https://www.adafruit.com/product/4474,4.95,4.95,Any USB-C data cable works.
+CASE1,1,3D-printed enclosure,Print from model.stl (CAD source: step.step),-,-,JLC3DP,https://jlc3dp.com/,5.00,5.00,"~$5 in PLA/resin from a print service, or free on your own printer. Source geometry: step.step."
+,,,,,,,,Total,60.15,"One-off build cost, excluding shipping and tax. Prices checked 2026-08-05."
