@@ -3,9 +3,8 @@
 PLAYABLE HERE https://wokwi.com/projects/471554640484162561
 
 ##  What this project is
-WITHDRAWN FROM OUTPOST
-<img width="471" height="819" alt="Screenshot 2026-07-31 at 6 17 02 PM" src="https://github.com/user-attachments/assets/daa91c57-6042-4519-ba92-43361ac078c5" />
-(was rejected on 7/9 and I never resubmitted 😭)
+<a href="https://github.com/user-attachments/assets/daa91c57-6042-4519-ba92-43361ac078c5">WITHDRAWN FROM OUTPOST</a>
+<a href="https://cad.onshape.com/documents/731b43eee40e1793ce4f1bee/w/3bcd84ddf1f4906279decfc5/e/f6a80c11e3a2f9d7e2fb46b3?renderMode=0&uiState=6a73ea5dee169838c93a549f">OnShape link</a>
 
 Inspired by <a href="https://www.reddit.com/r/AustralianNostalgia/comments/1fx5e6g/old_school_love_compatibility_tests_random_i_know/">old school romance compaitbility tests (based on names)</a> I built a old-school style, hand-held console like hardware with Arduino 32 as the display to match the player to their soulmate (from the cast of the 2026 FIFA world cup players trending all over social media). With a series of personality questions the user will be matched to their perfect partner from the world cup, and be able to navigate and reset through answer choices with the buttons.
 
