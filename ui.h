@@ -1,12 +1,4 @@
-/*
-==========================================================
-ui.h
-World Cup Love Machine
-
-OLED User Interface Function Declarations
-
-==========================================================
-*/
+// OLED User Interface Function Declarations
 
 #ifndef UI_H
 #define UI_H
@@ -14,15 +6,15 @@ OLED User Interface Function Declarations
 #include <Arduino.h>
 #include <Adafruit_SSD1306.h>
 
-//----------------------------------------------------
+
 // Main Drawing Function
-//----------------------------------------------------
+
 
 void drawCurrentScreen(Adafruit_SSD1306 &display);
 
-//----------------------------------------------------
+
 // Individual Screens
-//----------------------------------------------------
+
 
 void drawTitle(Adafruit_SSD1306 &display);
 
@@ -38,15 +30,24 @@ void drawProfile(Adafruit_SSD1306 &display);
 
 void drawEnding(Adafruit_SSD1306 &display);
 
-//----------------------------------------------------
+
 // UI Helpers
-//----------------------------------------------------
+
 
 void drawCenteredText(
     Adafruit_SSD1306 &display,
     String text,
     int y,
     int size
+);
+
+//  maxLines, return # of lines drawn
+int drawWrappedText(
+    Adafruit_SSD1306 &display,
+    String text,
+    int x,
+    int y,
+    int maxLines
 );
 
 void drawProgressBar(
@@ -67,9 +68,9 @@ void drawSoccerBall(
     int y
 );
 
-//----------------------------------------------------
+
 // Small Animations
-//----------------------------------------------------
+
 
 void animateTitle();
 

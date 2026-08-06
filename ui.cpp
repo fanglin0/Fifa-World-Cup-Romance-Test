@@ -1,13 +1,4 @@
-/*
-==========================================================
-ui.cpp
-World Cup Love Machine
-
-OLED User Interface
-
-Part 1
-==========================================================
-*/
+// oled ui!
 
 #include "ui.h"
 #include "game.h"
@@ -17,10 +8,8 @@ Part 1
 #include <Arduino.h>
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
-
-//----------------------------------------------------------
-// Draw Centered Text
-//----------------------------------------------------------
+-
+// Draw Centered Text-
 
 void drawCenteredText(
     Adafruit_SSD1306 &display,
@@ -53,10 +42,86 @@ void drawCenteredText(
     display.print(text);
 
 }
+-
+// Word-Wrapped Text
+//wtfwtfedgehfcb
+// Adafruit GFX breaks lines mid-word and keeps drawing past bottom pmo. wrap words here after maxLine so it's actually redable
 
-//----------------------------------------------------------
-// Progress Bar
-//----------------------------------------------------------
+const int CHARS_PER_LINE = 21;   
+const int LINE_HEIGHT    = 8;
+
+int drawWrappedText(
+    Adafruit_SSD1306 &display,
+    String text,
+    int x,
+    int y,
+    int maxLines)
+{
+
+    display.setTextSize(1);
+
+    int lines = 0;
+    int pos   = 0;
+    int len   = text.length();
+
+    while(pos < len && lines < maxLines)
+    {
+
+        int take = len - pos;
+
+        // Break between words where we can
+
+        if(take > CHARS_PER_LINE)
+        {
+
+            take = CHARS_PER_LINE;
+
+            int brk = take;
+
+            while(brk > 0 && text.charAt(pos + brk) != ' ')
+                brk--;
+
+            if(brk > 0)
+                take = brk;
+
+        }
+
+        String line = text.substring(pos, pos + take);
+
+        line.trim();
+
+        pos += take;
+
+        // Skip the space we broke on
+
+        while(pos < len && text.charAt(pos) == ' ')
+            pos++;
+
+        // Out of room but not out of text
+
+        if(lines == maxLines - 1 && pos < len)
+        {
+
+            while(line.length() + 3 > (unsigned int)CHARS_PER_LINE)
+                line = line.substring(0, line.length() - 1);
+
+            line += "...";
+
+        }
+
+        display.setCursor(x, y + lines * LINE_HEIGHT);
+
+        display.print(line);
+
+        lines++;
+
+    }
+
+    return lines;
+
+}
+-
+// Progress Bar-
 
 void drawProgressBar(
     Adafruit_SSD1306 &display,
@@ -94,10 +159,8 @@ void drawProgressBar(
     );
 
 }
-
-//----------------------------------------------------------
-// Pixel Heart
-//----------------------------------------------------------
+-
+// Pixel Heart-
 
 void drawHeart(
     Adafruit_SSD1306 &display,
@@ -149,10 +212,8 @@ void drawHeart(
     }
 
 }
-
-//----------------------------------------------------------
-// Tiny Soccer Ball
-//----------------------------------------------------------
+-
+// Tiny Soccer Ball-
 
 void drawSoccerBall(
     Adafruit_SSD1306 &display,
@@ -184,10 +245,8 @@ void drawSoccerBall(
     display.drawPixel(x,y+6,WHITE);
 
 }
-
-//----------------------------------------------------------
-// Title Animation
-//----------------------------------------------------------
+-
+// Title Animation-
 
 void animateTitle()
 {
@@ -202,10 +261,8 @@ void animateTitle()
     }
 
 }
-
-//----------------------------------------------------------
-// Loading Animation
-//----------------------------------------------------------
+-
+// Loading Animation-
 
 void animateLoading()
 {
@@ -227,10 +284,8 @@ void animateLoading()
     }
 
 }
-
-//----------------------------------------------------------
-// TITLE SCREEN
-//----------------------------------------------------------
+-
+// TITLE SCREEN-
 
 void drawTitle(Adafruit_SSD1306 &display)
 {
@@ -242,9 +297,10 @@ void drawTitle(Adafruit_SSD1306 &display)
     display.drawLine(0, 0, 127, 0, WHITE);
     display.drawLine(0, 63, 127, 63, WHITE);
 
-    // Soccer balls
-    drawSoccerBall(display, 12, 10);
-    drawSoccerBall(display, 116, 10);
+    // Soccer balls flank the heart. At y=10 they sat on top of
+    // "WORLD CUP", which spans x=10..117 at size 2.
+    drawSoccerBall(display, 20, 48);
+    drawSoccerBall(display, 108, 48);
 
     drawCenteredText(display, "WORLD CUP", 8, 2);
     drawCenteredText(display, "LOVE MACHINE", 28, 1);
@@ -262,39 +318,29 @@ void drawTitle(Adafruit_SSD1306 &display)
 
     display.display();
 }
-
-//----------------------------------------------------------
-// INTRO SCREEN
-//----------------------------------------------------------
+-
+// INTRO SCREEN-
 
 void drawIntro(Adafruit_SSD1306 &display)
 {
 
     display.clearDisplay();
 
-    drawCenteredText(display, "WELCOME!", 4, 2);
+    drawCenteredText(display, "WELCOME!", 2, 2);
 
-    display.setTextSize(1);
-
-    display.setCursor(5, 22);
-    display.println("Answer honestly.");
-
-    display.setCursor(5, 33);
-    display.println("We'll compare");
-
-    display.setCursor(5, 43);
-    display.println("your personality");
-
-    display.setCursor(5, 53);
-    display.println("with football legends!");
+    drawWrappedText(
+        display,
+        "Answer honestly. We'll compare your personality with football legends!",
+        2,
+        24,
+        4
+    );
 
     display.display();
 
 }
-
-//----------------------------------------------------------
-// QUESTION SCREEN
-//----------------------------------------------------------
+-
+// QUESTION SCREEN-
 
 void drawQuestion(Adafruit_SSD1306 &display)
 {
@@ -352,10 +398,8 @@ void drawQuestion(Adafruit_SSD1306 &display)
     display.display();
 
 }
-
-//----------------------------------------------------------
-// LOADING SCREEN
-//----------------------------------------------------------
+-
+// LOADING SCREEN-
 
 void drawLoading(Adafruit_SSD1306 &display)
 {
@@ -402,16 +446,15 @@ void drawLoading(Adafruit_SSD1306 &display)
 
     display.display();
 }
-
-//----------------------------------------------------------
-// RESULT SCREEN
-//----------------------------------------------------------
+-
+// RESULT SCREEN-
 
 void drawResult(Adafruit_SSD1306 &display)
 {
     display.clearDisplay();
 
-    drawCenteredText(display, "YOUR MATCH!", 2, 2);
+    // "YOUR MATCH!" is 132px wide at size 2 
+    drawCenteredText(display, "YOUR MATCH", 2, 2);
 
     display.drawLine(0,18,127,18,WHITE);
 
@@ -436,10 +479,8 @@ void drawResult(Adafruit_SSD1306 &display)
 
     display.display();
 }
-
-//----------------------------------------------------------
-// PLAYER PROFILE
-//----------------------------------------------------------
+-
+// PLAYER PROFILE-
 
 void drawProfile(Adafruit_SSD1306 &display)
 {
@@ -455,31 +496,29 @@ void drawProfile(Adafruit_SSD1306 &display)
         1
     );
 
-    display.drawLine(0,10,127,10,WHITE);
+    display.drawLine(0,8,127,8,WHITE);
 
-    display.setCursor(0,16);
-
-    display.println(
-        players[matchedPlayer].description
+    drawWrappedText(
+        display,
+        players[matchedPlayer].description,
+        0,
+        10,
+        3
     );
 
-    display.setCursor(0,48);
-
-    display.print("Warning:");
-
-    display.setCursor(0,57);
-
-    display.print(
-        players[matchedPlayer].warning
+    drawWrappedText(
+        display,
+        String("! ") + players[matchedPlayer].warning,
+        0,
+        36,
+        3
     );
 
     display.display();
 
 }
-
-//----------------------------------------------------------
-// ENDING SCREEN
-//----------------------------------------------------------
+-
+// ENDING SCREEN-
 
 void drawEnding(Adafruit_SSD1306 &display)
 {
@@ -526,10 +565,8 @@ void drawEnding(Adafruit_SSD1306 &display)
     display.display();
 
 }
-
-//----------------------------------------------------------
-// Draw Current Screen
-//----------------------------------------------------------
+-
+// Draw Current Screen-
 
 void drawCurrentScreen(Adafruit_SSD1306 &display)
 {

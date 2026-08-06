@@ -1,21 +1,10 @@
-/*
-==========================================================
-game.cpp
-World Cup Love Machine
-
-PART 1
-==========================================================
-*/
-
 #include "game.h"
 #include "questions.h"
 #include "players.h"
 #include "ui.h"
+#include "leds.h"
 
-//----------------------------------------------------------
-// Global Variables
-//----------------------------------------------------------
-
+// global vars
 GameState gameState = TITLE;
 
 int currentQuestion = 0;
@@ -27,16 +16,13 @@ int compatibilityScore = 0;
 int matchedPlayer = 0;
 
 int loadingProgress = 0;
-
+// faux timer make sit look more polsihed
 unsigned long loadingTimer = 0;
 unsigned long heartTimer = 0;
 
 bool heartVisible = true;
 
-//----------------------------------------------------------
-// Personality Scores
-//----------------------------------------------------------
-
+// personality scores
 int kindness = 0;
 int humor = 0;
 int confidence = 0;
@@ -44,10 +30,7 @@ int creativity = 0;
 int loyalty = 0;
 int ambition = 0;
 
-//----------------------------------------------------------
-// Initialize Game
-//----------------------------------------------------------
-
+// intiialize games!
 void initGame()
 {
 
@@ -80,10 +63,7 @@ void initGame()
 
 }
 
-//----------------------------------------------------------
-// Reset
-//----------------------------------------------------------
-
+// reset games
 void resetGame()
 {
 
@@ -91,10 +71,7 @@ void resetGame()
 
 }
 
-//----------------------------------------------------------
-// Next Question
-//----------------------------------------------------------
-
+// next questions
 void nextQuestion()
 {
 
@@ -114,10 +91,8 @@ void nextQuestion()
     }
 
 }
-//----------------------------------------------------------
-// LEFT BUTTON
-//----------------------------------------------------------
 
+// left button; only runs doing quiz portion
 void pressLeft()
 {
 
@@ -158,10 +133,7 @@ void pressLeft()
 
 }
 
-//----------------------------------------------------------
-// RIGHT BUTTON
-//----------------------------------------------------------
-
+// right button; only runs doing quiz portion
 void pressRight()
 {
 
@@ -202,19 +174,14 @@ void pressRight()
 
 }
 
-//----------------------------------------------------------
-// OK BUTTON
-//----------------------------------------------------------
-
+// ok button!
 void pressOK()
 {
 
     switch(gameState)
     {
 
-        //--------------------------------------------------
         // Title
-        //--------------------------------------------------
 
         case TITLE:
 
@@ -222,9 +189,7 @@ void pressOK()
 
             break;
 
-        //--------------------------------------------------
         // Intro
-        //--------------------------------------------------
 
         case INTRO:
 
@@ -232,17 +197,13 @@ void pressOK()
 
             break;
 
-        //--------------------------------------------------
         // Quiz
-        //--------------------------------------------------
 
         case QUESTION:
 
             answers[currentQuestion] = currentChoice;
 
-            //--------------------------------------------------
             // Build Personality Stats
-            //--------------------------------------------------
 
             switch(currentChoice)
             {
@@ -277,9 +238,7 @@ void pressOK()
 
             break;
 
-        //--------------------------------------------------
         // Result
-        //--------------------------------------------------
 
         case RESULT:
 
@@ -287,9 +246,7 @@ void pressOK()
 
             break;
 
-        //--------------------------------------------------
         // Profile
-        //--------------------------------------------------
 
         case PROFILE:
 
@@ -297,9 +254,7 @@ void pressOK()
 
             break;
 
-        //--------------------------------------------------
         // Ending
-        //--------------------------------------------------
 
         case ENDING:
 
@@ -314,9 +269,7 @@ void pressOK()
     }
 
 }
-//----------------------------------------------------------
 // Calculate Compatibility
-//----------------------------------------------------------
 
 void calculateCompatibility()
 {
@@ -324,9 +277,7 @@ void calculateCompatibility()
     int bestScore = 100000;
     matchedPlayer = 0;
 
-    //------------------------------------------------------
     // Compare against every football player
-    //------------------------------------------------------
 
     for(int i = 0; i < PLAYER_COUNT; i++)
     {
@@ -348,9 +299,7 @@ void calculateCompatibility()
 
     }
 
-    //------------------------------------------------------
     // Convert difference into percentage
-    //------------------------------------------------------
 
     // Maximum possible difference:
     // 6 personality traits
@@ -365,15 +314,11 @@ void calculateCompatibility()
         60
     );
 
-    //------------------------------------------------------
     // Flash Game Randomness
-    //------------------------------------------------------
 
     compatibilityScore += random(-4,5);
 
-    //------------------------------------------------------
     // Clamp
-    //------------------------------------------------------
 
     if(compatibilityScore > 99)
         compatibilityScore = 99;
@@ -383,9 +328,7 @@ void calculateCompatibility()
 
 }
 
-//----------------------------------------------------------
 // Loading Screen Logic
-//----------------------------------------------------------
 
 void updateLoading()
 {
@@ -410,6 +353,21 @@ void updateLoading()
         gameState = RESULT;
 
     }
+
+}
+
+// Update Game
+//
+// Called once per frame from loop().
+// Advances any state that runs on a timer rather than
+// on a button press.
+
+void updateGame()
+{
+
+    updateLoading();
+
+    updateLeds();
 
 }
 
