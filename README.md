@@ -87,4 +87,4 @@ Trying to get the LONG script to come together, had to troubleshoot various time
 Also, trying to 3d model in onshape. I struggled to navigate the basic menu and a lot of parts in the project was harder than expected, as I had to learn them from scratch. It took a lot more cramming than expected to get in before deadline :')
 
 ##AI Declaration
-ChatGPT was used to debug code when I got stuck, as I'm a complete beginner with almost no background in hardware except for a chaser.
+ChatGPT was used to debug code when I got stuck, as I'm a complete beginner with almost no background in hardware except for a chaser. Claude was also used a lot in terms of debugging linking the hardware arduino 32 w/ my code, so it's understdanble if hours are dedcuated!
